@@ -24,11 +24,11 @@ class Client:
     def __getattr__(self, name):
         def method(*args, **kwargs):
             if name[:4] == 'add_':
-                return self.add(name[:4] + 's', **kwargs)
+                return self.add(name[4:] + 's', **kwargs)
             elif name[:4] == 'get_':
-                return self.get(name[:4] + 's', *args, **kwargs)
+                return self.get(name[4:] + 's', *args, **kwargs)
             elif name[:7] == 'update_':
-                return self.update(name[:7] + 's', *args, **kwargs)
+                return self.update(name[7:] + 's', *args, **kwargs)
             else:
                 return getattr(self, name)(*args, **kwargs)
 
