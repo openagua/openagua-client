@@ -1,1 +1,1 @@
-from .openagua_client import Client
+from .client import Client
