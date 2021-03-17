@@ -2,7 +2,7 @@ from os import environ
 import requests
 
 
-class OpenAguaClient:
+class Client:
     datetime = None
     _step = 0
     paused = False
