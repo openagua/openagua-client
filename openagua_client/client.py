@@ -51,6 +51,14 @@ class Client:
         resp = requests.get(url, headers=self.api_headers, params=kwargs)
         return self.prepare_response(resp)
 
+    def hydra(self, func, *args, **kwargs):
+        url = f'{self.api_endpoint}/hydra/{func}'
+        resp = requests.post(url, headers=self.api_headers, json={
+            'args': args,
+            'kwargs': kwargs
+        })
+        return self.prepare_response(resp)
+
     @staticmethod
     def prepare_response(resp):
         if resp.status_code == 200:
