@@ -48,7 +48,7 @@ class Client:
     def update(self, resource, *args, **kwargs):
         resource_id = args[0]
         url = '{}/{}/{}'.format(self.api_endpoint, resource, resource_id)
-        resp = requests.get(url, headers=self.api_headers, params=kwargs)
+        resp = requests.put(url, headers=self.api_headers, json=kwargs)
         return self.prepare_response(resp)
 
     def hydra(self, func, *args, **kwargs):
