@@ -29,8 +29,12 @@ class Client:
                 return self.get(name[4:] + 's', *args, **kwargs)
             elif name[:7] == 'update_':
                 return self.update(name[7:] + 's', *args, **kwargs)
+            elif name[:7] == 'delete_':
+                return self.delete(name[7:] + 's', *args, **kwargs)
+            elif name == 'hydra':
+                return self.hydra(*args, **kwargs)
             else:
-                return getattr(self, name)(*args, **kwargs)
+                raise Exception('Method does not exist!')
 
         return method
 
@@ -46,6 +50,12 @@ class Client:
         return self.prepare_response(resp)
 
     def update(self, resource, *args, **kwargs):
+        resource_id = args[0]
+        url = '{}/{}/{}'.format(self.api_endpoint, resource, resource_id)
+        resp = requests.put(url, headers=self.api_headers, json=kwargs)
+        return self.prepare_response(resp)
+
+    def delete(self, resource, *args, **kwargs):
         resource_id = args[0]
         url = '{}/{}/{}'.format(self.api_endpoint, resource, resource_id)
         resp = requests.put(url, headers=self.api_headers, json=kwargs)
